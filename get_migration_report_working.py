@@ -1,10 +1,9 @@
-import requests
-import json
+import requests, json
 from datetime import datetime
 
-def get_migration_plan_details(cluster_api_url, auth_token, namespace, plan_name):
+def get_migration_plan_details(cluster_url, auth_token, namespace, plan_name):
     """Fetch a migration plan from OpenShift Forklift API and extract its details."""
-    url = f"{cluster_api_url}/apis/forklift.konveyor.io/v1beta1/namespaces/{namespace}/plans/{plan_name}"
+    url = f"{cluster_url}/apis/forklift.konveyor.io/v1beta1/namespaces/{namespace}/plans/{plan_name}"
 
     # Set up headers with the Bearer auth_token for authorization
     headers = {
@@ -78,13 +77,13 @@ def get_migration_plan_details(cluster_api_url, auth_token, namespace, plan_name
     }
 
 # Usage
-cluster_api_url = "https://api.ocp4.example.com:6443"
+cluster_url = "https://api.ocp4.example.com:6443"
 auth_token = ""  # Use your Bearer token
 namespace = ""
 plan_name = ""
 
 # Fetch and extract migration plan details in one call
-plan_details = get_migration_plan_details(cluster_api_url, auth_token, namespace, plan_name)
+plan_details = get_migration_plan_details(cluster_url, auth_token, namespace, plan_name)
 
 # Print the result
 print(json.dumps(plan_details, indent=2))
