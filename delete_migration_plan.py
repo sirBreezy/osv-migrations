@@ -1,6 +1,6 @@
 import requests
 
-def delete_migration_plan(cluster_url, namespace, plan, auth_token):
+def delete_migration_plan(cluster_url, auth_token, namespace, plan):
 
     url = f"{cluster_url}/apis/forklift.konveyor.io/v1beta1/namespaces/{namespace}/plans/{plan}"
     
@@ -23,8 +23,9 @@ def delete_migration_plan(cluster_url, namespace, plan, auth_token):
 
 # Example usage
 cluster_url = "https://api.ocp4.example.com:6443"
+auth_token = ""
 namespace = ""
 plan = ""
-auth_token = ""
+
  
 delete_migration_plan(cluster_url , namespace, plan, auth_token)
