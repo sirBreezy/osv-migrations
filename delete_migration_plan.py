@@ -21,10 +21,9 @@ def delete_migration_plan(cluster_url,auth_token,namespace,plan):
         print(f"Failed to delete plan '{plan}': {response.status_code} - {response.text}")
         return False
 
-# Example usage
-cluster_url = "https://api.ocp4.example.com:6443"
-auth_token = ""
-namespace = ""
-plan = ""
+cluster_url = "https://api.ocp4.thebrizzles.local:6443"
+namespace = "openshift-mtv"
+plan = "cae-test-12"
+auth_token = "sha256~MusZjo5hhm1Ny4DcnC5f6BKgENBdEyKNMZ5wjVE39Dk"
  
 delete_migration_plan(cluster_url,auth_token,namespace,plan)
