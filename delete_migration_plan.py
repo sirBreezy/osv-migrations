@@ -26,6 +26,5 @@ cluster_url = "https://api.ocp4.example.com:6443"
 auth_token = ""
 namespace = ""
 plan = ""
-
  
-delete_migration_plan(cluster_url , namespace, plan, auth_token)
+delete_migration_plan(cluster_url, auth_token, namespace, plan)
