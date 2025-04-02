@@ -1,6 +1,6 @@
 import requests
 
-def patch_migration_plan(cluster_url,auth_token,namespace,plan):
+def archive_migration_plan(cluster_url,auth_token,namespace,plan):
     url = f"{cluster_url}/apis/forklift.konveyor.io/v1beta1/namespaces/{namespace}/plans/{plan}"
     
     headers = {
@@ -29,4 +29,4 @@ namespace = ""
 plan = ""
 auth_token = ""
 
-patch_migration_plan(cluster_url,auth_token,namespace,plan)
+archive_migration_plan(cluster_url,auth_token,namespace,plan)
