@@ -37,7 +37,7 @@ auth_token = ""
 vm_name = "fedora-vm"
 vm_list = ["fedora-vm", "rhel9-vm"]
 
-
+# start_vm(cluster_url, namespace, vm_name, auth_token)
 start_multiple_vms(cluster_url, namespace, vm_list, auth_token)
 
-# start_vm(cluster_url, namespace, vm_name, auth_token)
+

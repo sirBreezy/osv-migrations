@@ -39,6 +39,5 @@ auth_token = "sha256~0gB9De5mL0MpXdYBGmSXCrxW8CDnu8x2Nul2G2Daf-4"
 
 vm_list = ["fedora-vm", "rhel9-vm"]  # Replace with actual VM names
 
-stop_multiple_vms(cluster_url, namespace, vm_list, auth_token)
-
 #stop_vm(cluster_url, namespace, vm_name, auth_token)
+stop_multiple_vms(cluster_url, namespace, vm_list, auth_token)
