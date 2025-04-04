@@ -1,6 +1,7 @@
 import requests, json
 
 def start_vm(cluster_url, namespace, vm_name, auth_token):
+    
     url = f"{cluster_url}/apis/kubevirt.io/v1/namespaces/{namespace}/virtualmachines/{vm_name}"
 
     headers = {
