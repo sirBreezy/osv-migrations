@@ -1,0 +1,371 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "forklift.konveyor.io/v1beta1",
+            "kind": "Plan",
+            "metadata": {
+                "annotations": {
+                    "populatorLabels": "True"
+                },
+                "creationTimestamp": "2025-09-06T05:18:02Z",
+                "generation": 3,
+                "name": "plan1",
+                "namespace": "openshift-mtv",
+                "resourceVersion": "135114372",
+                "uid": "8de29efc-7798-4142-8c55-c92a6f566da9"
+            },
+            "spec": {
+                "map": {
+                    "network": {
+                        "apiVersion": "forklift.konveyor.io/v1beta1",
+                        "kind": "NetworkMap",
+                        "name": "plan1-plan1",
+                        "namespace": "openshift-mtv",
+                        "uid": "053b4fef-3be0-4367-8a04-aa41bf681a01"
+                    },
+                    "storage": {
+                        "apiVersion": "forklift.konveyor.io/v1beta1",
+                        "kind": "StorageMap",
+                        "name": "plan1-plan1",
+                        "namespace": "openshift-mtv",
+                        "uid": "09fd1f51-14f5-44ce-b5cc-8955879fd217"
+                    }
+                },
+                "migrateSharedDisks": true,
+                "provider": {
+                    "destination": {
+                        "apiVersion": "forklift.konveyor.io/v1beta1",
+                        "kind": "Provider",
+                        "name": "host",
+                        "namespace": "openshift-mtv",
+                        "uid": "485d9970-01ee-488d-abfc-1e3d5c435190"
+                    },
+                    "source": {
+                        "apiVersion": "forklift.konveyor.io/v1beta1",
+                        "kind": "Provider",
+                        "name": "host",
+                        "namespace": "openshift-mtv",
+                        "uid": "485d9970-01ee-488d-abfc-1e3d5c435190"
+                    }
+                },
+                "pvcNameTemplateUseGenerateName": true,
+                "skipGuestConversion": false,
+                "targetNamespace": "dev-cae-team",
+                "useCompatibilityMode": true,
+                "vms": [
+                    {
+                        "id": "0dcb3198-a272-4de3-849e-5abc466b2cfa",
+                        "name": "fedora-42",
+                        "namespace": "qa-cae-team"
+                    }
+                ],
+                "warm": false
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "category": "Required",
+                        "lastTransitionTime": "2025-09-20T03:03:22Z",
+                        "message": "The migration plan is ready.",
+                        "status": "True",
+                        "type": "Ready"
+                    }
+                ],
+                "migration": {},
+                "observedGeneration": 3
+            }
+        },
+        {
+            "apiVersion": "forklift.konveyor.io/v1beta1",
+            "kind": "Plan",
+            "metadata": {
+                "annotations": {
+                    "populatorLabels": "True"
+                },
+                "creationTimestamp": "2025-09-06T05:19:22Z",
+                "generation": 1,
+                "name": "plan2",
+                "namespace": "openshift-mtv",
+                "resourceVersion": "135114154",
+                "uid": "69e7b724-0e45-4bff-87bc-7722b6cc0061"
+            },
+            "spec": {
+                "map": {
+                    "network": {
+                        "apiVersion": "forklift.konveyor.io/v1beta1",
+                        "kind": "NetworkMap",
+                        "name": "plan2-plan1",
+                        "namespace": "openshift-mtv",
+                        "uid": "655feab8-881f-42b0-b191-985088880507"
+                    },
+                    "storage": {
+                        "apiVersion": "forklift.konveyor.io/v1beta1",
+                        "kind": "StorageMap",
+                        "name": "plan2-plan1",
+                        "namespace": "openshift-mtv",
+                        "uid": "7349b609-7b74-4231-abb8-7dfede14074e"
+                    }
+                },
+                "migrateSharedDisks": true,
+                "provider": {
+                    "destination": {
+                        "apiVersion": "forklift.konveyor.io/v1beta1",
+                        "kind": "Provider",
+                        "name": "host",
+                        "namespace": "openshift-mtv",
+                        "uid": "485d9970-01ee-488d-abfc-1e3d5c435190"
+                    },
+                    "source": {
+                        "apiVersion": "forklift.konveyor.io/v1beta1",
+                        "kind": "Provider",
+                        "name": "host",
+                        "namespace": "openshift-mtv",
+                        "uid": "485d9970-01ee-488d-abfc-1e3d5c435190"
+                    }
+                },
+                "pvcNameTemplateUseGenerateName": true,
+                "skipGuestConversion": false,
+                "targetNamespace": "dev-cae-team",
+                "useCompatibilityMode": true,
+                "vms": [
+                    {
+                        "id": "0dcb3198-a272-4de3-849e-5abc466b2cfa",
+                        "name": "fedora-42",
+                        "namespace": "qa-cae-team"
+                    }
+                ],
+                "warm": false
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "category": "Critical",
+                        "items": [
+                            " id:0dcb3198-a272-4de3-849e-5abc466b2cfa name:'fedora-42' "
+                        ],
+                        "lastTransitionTime": "2025-09-20T03:03:11Z",
+                        "message": "VM has unmapped networks.",
+                        "reason": "NotValid",
+                        "status": "True",
+                        "type": "VMNetworksNotMapped"
+                    },
+                    {
+                        "category": "Critical",
+                        "items": [
+                            " id:0dcb3198-a272-4de3-849e-5abc466b2cfa name:'fedora-42' "
+                        ],
+                        "lastTransitionTime": "2025-09-20T03:03:11Z",
+                        "message": "VM has unmapped storage.",
+                        "reason": "NotValid",
+                        "status": "True",
+                        "type": "VMStorageNotMapped"
+                    }
+                ],
+                "migration": {},
+                "observedGeneration": 1
+            }
+        },
+        {
+            "apiVersion": "forklift.konveyor.io/v1beta1",
+            "kind": "Plan",
+            "metadata": {
+                "annotations": {
+                    "populatorLabels": "True"
+                },
+                "creationTimestamp": "2025-09-27T20:24:33Z",
+                "generation": 1,
+                "name": "qa-to-dev",
+                "namespace": "openshift-mtv",
+                "resourceVersion": "144508678",
+                "uid": "044a2941-9435-4bf3-a5d4-e0155384576c"
+            },
+            "spec": {
+                "map": {
+                    "network": {
+                        "apiVersion": "forklift.konveyor.io/v1beta1",
+                        "kind": "NetworkMap",
+                        "name": "qa-to-dev",
+                        "namespace": "openshift-mtv",
+                        "uid": "b6fbf8e0-aa5b-48ae-9128-a3e2cce37c35"
+                    },
+                    "storage": {
+                        "apiVersion": "forklift.konveyor.io/v1beta1",
+                        "kind": "StorageMap",
+                        "name": "lvm",
+                        "namespace": "openshift-mtv",
+                        "uid": "58a8bd06-56f9-468d-a717-1a34483259f1"
+                    }
+                },
+                "migrateSharedDisks": true,
+                "provider": {
+                    "destination": {
+                        "apiVersion": "forklift.konveyor.io/v1beta1",
+                        "kind": "Provider",
+                        "name": "host",
+                        "namespace": "openshift-mtv",
+                        "uid": "485d9970-01ee-488d-abfc-1e3d5c435190"
+                    },
+                    "source": {
+                        "apiVersion": "forklift.konveyor.io/v1beta1",
+                        "kind": "Provider",
+                        "name": "host",
+                        "namespace": "openshift-mtv",
+                        "uid": "485d9970-01ee-488d-abfc-1e3d5c435190"
+                    }
+                },
+                "pvcNameTemplateUseGenerateName": true,
+                "skipGuestConversion": false,
+                "targetNamespace": "dev-cae-team",
+                "useCompatibilityMode": true,
+                "vms": [
+                    {
+                        "id": "0dcb3198-a272-4de3-849e-5abc466b2cfa",
+                        "name": "fedora-42",
+                        "namespace": "qa-cae-team"
+                    }
+                ],
+                "warm": false
+            },
+            "status": {
+                "conditions": [
+                    {
+                        "category": "Required",
+                        "lastTransitionTime": "2025-09-27T20:24:33Z",
+                        "message": "The migration plan is ready.",
+                        "status": "True",
+                        "type": "Ready"
+                    },
+                    {
+                        "category": "Advisory",
+                        "durable": true,
+                        "lastTransitionTime": "2025-09-27T20:24:43Z",
+                        "message": "The plan is EXECUTING.",
+                        "status": "True",
+                        "type": "Executing"
+                    }
+                ],
+                "migration": {
+                    "history": [
+                        {
+                            "conditions": [
+                                {
+                                    "category": "Advisory",
+                                    "durable": true,
+                                    "lastTransitionTime": "2025-09-27T20:24:43Z",
+                                    "message": "The plan is EXECUTING.",
+                                    "status": "True",
+                                    "type": "Executing"
+                                }
+                            ],
+                            "map": {
+                                "network": {
+                                    "generation": 1,
+                                    "name": "qa-to-dev",
+                                    "namespace": "openshift-mtv",
+                                    "uid": "b6fbf8e0-aa5b-48ae-9128-a3e2cce37c35"
+                                },
+                                "storage": {
+                                    "generation": 1,
+                                    "name": "lvm",
+                                    "namespace": "openshift-mtv",
+                                    "uid": "58a8bd06-56f9-468d-a717-1a34483259f1"
+                                }
+                            },
+                            "migration": {
+                                "generation": 1,
+                                "name": "qa-to-dev-m25q5",
+                                "namespace": "openshift-mtv",
+                                "uid": "7a8c37ae-abf5-4414-9609-bcc79e7dfaec"
+                            },
+                            "plan": {
+                                "generation": 1,
+                                "name": "qa-to-dev",
+                                "namespace": "openshift-mtv",
+                                "uid": "044a2941-9435-4bf3-a5d4-e0155384576c"
+                            },
+                            "provider": {
+                                "destination": {
+                                    "generation": 1,
+                                    "name": "host",
+                                    "namespace": "openshift-mtv",
+                                    "uid": "485d9970-01ee-488d-abfc-1e3d5c435190"
+                                },
+                                "source": {
+                                    "generation": 1,
+                                    "name": "host",
+                                    "namespace": "openshift-mtv",
+                                    "uid": "485d9970-01ee-488d-abfc-1e3d5c435190"
+                                }
+                            }
+                        }
+                    ],
+                    "started": "2025-09-27T20:24:43Z",
+                    "vms": [
+                        {
+                            "id": "0dcb3198-a272-4de3-849e-5abc466b2cfa",
+                            "luks": {},
+                            "name": "fedora-42",
+                            "namespace": "qa-cae-team",
+                            "phase": "CopyDisks",
+                            "pipeline": [
+                                {
+                                    "completed": "2025-09-27T20:25:07Z",
+                                    "description": "Initialize migration.",
+                                    "name": "Initialize",
+                                    "phase": "Completed",
+                                    "progress": {
+                                        "completed": 0,
+                                        "total": 1
+                                    },
+                                    "started": "2025-09-27T20:24:43Z"
+                                },
+                                {
+                                    "annotations": {
+                                        "unit": "MB"
+                                    },
+                                    "description": "Transfer disks.",
+                                    "name": "DiskTransfer",
+                                    "phase": "Completed",
+                                    "progress": {
+                                        "completed": 0,
+                                        "total": 30720
+                                    },
+                                    "started": "2025-09-27T20:25:08Z",
+                                    "tasks": [
+                                        {
+                                            "annotations": {
+                                                "unit": "MB"
+                                            },
+                                            "name": "qa-cae-team/fedora-42",
+                                            "progress": {
+                                                "completed": 0,
+                                                "total": 30720
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "description": "Create VM.",
+                                    "name": "VirtualMachineCreation",
+                                    "phase": "Pending",
+                                    "progress": {
+                                        "completed": 0,
+                                        "total": 1
+                                    }
+                                }
+                            ],
+                            "restorePowerState": "Off",
+                            "started": "2025-09-27T20:24:43Z"
+                        }
+                    ]
+                },
+                "observedGeneration": 1
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

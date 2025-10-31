@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OpenShift Virtualization Dashboard</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #eee; }
+        .ok { color: green; font-weight: bold; }
+        .warn { color: orange; font-weight: bold; }
+        .fail { color: red; font-weight: bold; }
+        button { margin: 2px; }
+    </style>
+    <script>
+        function vmAction(namespace, name, action) {
+            fetch(`/vm/${namespace}/${name}/${action}`, {method: 'POST'})
+            .then(response => response.json())
+            .then(data => {
+                alert(`${name}: ${data.status}`);
+                location.reload();
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>OpenShift Virtualization - All VMs</h1>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Namespace</th>
+            <th>Status</th>
+            <th>Ready</th>
+            <th>Run Strategy</th>
+            <th>Type</th>
+            <th>Preference</th>
+            <th>Storage</th>
+            <th>Network (MAC)</th>
+            <th>Created</th>
+            <th>Warnings</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for vm in vms %}
+        <tr>
+            <td>{{ vm.metadata.name }}</td>
+            <td>{{ vm.metadata.namespace }}</td>
+            <td>{{ vm.status.printableStatus if vm.status else "Unknown" }}</td>
+            <td class="{{ 'ok' if vm.status and vm.status.ready else 'fail' }}">
+                {{ "Yes" if vm.status and vm.status.ready else "No" }}
+            </td>
+            <td>{{ vm.spec.runStrategy if vm.spec.runStrategy else "-" }}</td>
+            <td>{{ vm.spec.instancetype.name if vm.spec.instancetype else "-" }}</td>
+            <td>{{ vm.spec.preference.name if vm.spec.preference else "-" }}</td>
+            <td>
+                {% if vm.spec.dataVolumeTemplates %}
+                  {{ vm.spec.dataVolumeTemplates[0].spec.storage.resources.requests.storage }}
+                  ({{ vm.spec.dataVolumeTemplates[0].spec.storage.storageClassName }})
+                {% else %}-{% endif %}
+            </td>
+            <td>
+                {% if vm.spec.template.spec.domain.devices.interfaces %}
+                  {{ vm.spec.template.spec.domain.devices.interfaces[0].macAddress }}
+                {% else %}-{% endif %}
+            </td>
+            <td>{{ vm.metadata.creationTimestamp }}</td>
+            <td>
+                {% for cond in vm.status.conditions if cond.status == "False" %}
+                    <span class="warn">⚠ {{ cond.type }}: {{ cond.message }}</span><br>
+                {% endfor %}
+            </td>
+            <td>
+                <button onclick="vmAction('{{ vm.metadata.namespace }}', '{{ vm.metadata.name }}', 'start')">Start</button>
+                <button onclick="vmAction('{{ vm.metadata.namespace }}', '{{ vm.metadata.name }}', 'stop')">Stop</button>
+                <button onclick="vmAction('{{ vm.metadata.namespace }}', '{{ vm.metadata.name }}', 'restart')">Restart</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

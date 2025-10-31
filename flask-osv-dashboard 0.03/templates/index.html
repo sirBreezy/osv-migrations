@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>KubeVirt Dashboard</title>
+  <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { padding: 8px; border: 1px solid #ddd; }
+    th { background-color: #f2f2f2; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>KubeVirt Multi-Namespace Dashboard</h1>
+  <input type="text" id="search" placeholder="Filter by name/namespace" oninput="renderVMs(vms)">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Namespace</th>
+        <th>Status</th>
+        <th>CPU (cores)</th>
+        <th>Memory (MiB)</th>
+        <th>Snapshots</th>
+      </tr>
+    </thead>
+    <tbody id="vm-table"></tbody>
+  </table>
+
+<script>
+const socket = io();
+let vms = [];
+
+socket.on("update_vms", data => {
+    vms = data.vms;
+    renderVMs(vms);
+});
+
+function renderVMs(vmsData) {
+    const filter = document.getElementById("search").value.toLowerCase();
+    const tbody = document.getElementById("vm-table");
+    tbody.innerHTML = "";
+    vmsData.filter(vm => vm.name.toLowerCase().includes(filter) || vm.namespace.toLowerCase().includes(filter))
+           .forEach(vm => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${vm.name}</td>
+            <td>${vm.namespace}</td>
+            <td>${vm.status}</td>
+            <td>${(vm.cpu||0).toFixed(2)}</td>
+            <td>${(vm.memory/1024/1024||0).toFixed(1)}</td>
+            <td>${vm.snapshots.join(", ")}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+</script>
+</body>
+</html>

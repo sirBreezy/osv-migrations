@@ -1,0 +1,117 @@
+{
+  "kind": "Namespace",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "cae-test",
+    "uid": "77924969-8dd8-4aee-a6cd-54617f322be3",
+    "resourceVersion": "9537819",
+    "creationTimestamp": "2024-11-16T01:48:45Z",
+    "labels": {
+      "kubernetes.io/metadata.name": "cae-test",
+      "openshift-pipelines.tekton.dev/namespace-reconcile-version": "1.16.1",
+      "pod-security.kubernetes.io/audit": "baseline",
+      "pod-security.kubernetes.io/audit-version": "latest",
+      "pod-security.kubernetes.io/warn": "baseline",
+      "pod-security.kubernetes.io/warn-version": "latest"
+    },
+    "annotations": {
+      "openshift.io/description": "testing / training on topics for CAE role",
+      "openshift.io/display-name": "cae-test",
+      "openshift.io/requester": "kube:admin",
+      "openshift.io/sa.scc.mcs": "s0:c27,c14",
+      "openshift.io/sa.scc.supplemental-groups": "1000730000/10000",
+      "openshift.io/sa.scc.uid-range": "1000730000/10000"
+    },
+    "managedFields": [
+      {
+        "manager": "pod-security-admission-label-synchronization-controller",
+        "operation": "Apply",
+        "apiVersion": "v1",
+        "time": "2024-12-03T02:57:36Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:labels": {
+              "f:pod-security.kubernetes.io/audit": {},
+              "f:pod-security.kubernetes.io/audit-version": {},
+              "f:pod-security.kubernetes.io/warn": {},
+              "f:pod-security.kubernetes.io/warn-version": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "cluster-policy-controller",
+        "operation": "Update",
+        "apiVersion": "v1",
+        "time": "2024-11-16T01:48:45Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:openshift.io/sa.scc.mcs": {},
+              "f:openshift.io/sa.scc.supplemental-groups": {},
+              "f:openshift.io/sa.scc.uid-range": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "openshift-apiserver",
+        "operation": "Update",
+        "apiVersion": "v1",
+        "time": "2024-11-16T01:48:45Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              ".": {},
+              "f:openshift.io/description": {},
+              "f:openshift.io/display-name": {},
+              "f:openshift.io/requester": {}
+            },
+            "f:labels": {
+              ".": {},
+              "f:kubernetes.io/metadata.name": {}
+            }
+          }
+        }
+      },
+      {
+        "manager": "openshift-controller-manager",
+        "operation": "Update",
+        "apiVersion": "v1",
+        "time": "2024-11-16T01:48:45Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:spec": {
+            "f:finalizers": {}
+          }
+        },
+        "subresource": "finalize"
+      },
+      {
+        "manager": "openshift-pipelines-operator",
+        "operation": "Update",
+        "apiVersion": "v1",
+        "time": "2024-11-19T17:34:31Z",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:labels": {
+              "f:openshift-pipelines.tekton.dev/namespace-reconcile-version": {}
+            }
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "finalizers": [
+      "kubernetes"
+    ]
+  },
+  "status": {
+    "phase": "Active"
+  }
+}

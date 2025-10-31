@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OSV Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #eee; cursor: pointer; }
+        .ok { color: green; font-weight: bold; }
+        .warn { color: orange; font-weight: bold; }
+        .fail { color: red; font-weight: bold; }
+        button { margin: 2px; }
+        #searchBar { margin-bottom: 10px; padding: 5px; width: 300px; }
+    </style>
+    <script>
+        // --- Search Filtering ---
+        function filterTable() {
+            let input = document.getElementById("searchBar").value.toLowerCase();
+            let rows = document.getElementById("vmTable").getElementsByTagName("tr");
+            for (let i = 1; i < rows.length; i++) {
+                let rowText = rows[i].innerText.toLowerCase();
+                rows[i].style.display = rowText.includes(input) ? "" : "none";
+            }
+        }
+
+        // --- Column Sorting ---
+        function sortTable(n) {
+            let table = document.getElementById("vmTable");
+            let rows = Array.from(table.rows).slice(1);
+            let asc = table.getAttribute("data-sort-dir") !== "asc";
+            rows.sort((a, b) => {
+                let x = a.cells[n].innerText.toLowerCase();
+                let y = b.cells[n].innerText.toLowerCase();
+                return asc ? x.localeCompare(y) : y.localeCompare(x);
+            });
+            rows.forEach(r => table.tBodies[0].appendChild(r));
+            table.setAttribute("data-sort-dir", asc ? "asc" : "desc");
+        }
+
+        // --- VM Actions with Confirmation ---
+        function confirmAction(namespace, name, action) {
+            const userConfirmed = confirm(`Are you sure you want to "${action}" the VM "${name}"?`);
+            
+            if (userConfirmed) {
+                // If the user confirms, proceed with the action
+                vmAction(namespace, name, action);
+            }
+        }
+
+        // --- Core VM Action Logic (renamed and now called by confirmAction) ---
+        function vmAction(namespace, name, action) {
+            fetch(`/vm/${namespace}/${name}/${action}`, {method: 'POST'})
+            .then(response => response.json())
+            .then(data => {
+                alert(`${name}: ${data.status}`);
+                loadVMs(); // Reload the VM table to show the new status
+            })
+            .catch(error => {
+                // Handle potential network errors
+                alert(`${name}: An error occurred while performing the action.`);
+                console.error('Error:', error);
+            });
+        }
+
+        // --- Real-time Updates (polling every 10s) ---
+        function loadVMs() {
+            fetch("/api/vms")
+            .then(response => response.json())
+            .then(vms => {
+                let tbody = document.getElementById("vmBody");
+                tbody.innerHTML = "";
+                vms.forEach(vm => {
+                    let row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${vm.name}</td>
+                        <td>${vm.namespace}</td>
+                        <td>${vm.status}</td>
+                        <td class="${vm.ready ? "ok" : "fail"}">${vm.ready ? "Yes" : "No"}</td>
+                        <td>${vm.runStrategy}</td>
+                        <td>${vm.type}</td>
+                        <td>${vm.preference}</td>
+                        <td>${vm.storage}</td>
+                        <td>${vm.mac}</td>
+                        <td>${vm.created}</td>
+                        <td>${vm.snapshots}</td>
+                        <td>${vm.warnings}</td>
+                        <td>
+                            <button onclick="confirmAction('${vm.namespace}', '${vm.name}', 'start')">Start</button>
+                            <button onclick="confirmAction('${vm.namespace}', '${vm.name}', 'stop')">Stop</button>
+                            <button onclick="confirmAction('${vm.namespace}', '${vm.name}', 'restart')">Restart</button>
+
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            });
+        }
+
+        setInterval(loadVMs, 10000); // refresh every 10 seconds
+        window.onload = loadVMs;
+    </script>
+</head>
+<body>
+    <h1>OpenShift Virtualization Dashboard</h1>
+    <input id="searchBar" type="text" placeholder="Search by name, namespace, status..." onkeyup="filterTable()">
+
+    <table id="vmTable" data-sort-dir="asc">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Name</th>
+                <th onclick="sortTable(1)">Namespace</th>
+                <th onclick="sortTable(2)">Status</th>
+                <th onclick="sortTable(3)">Ready</th>
+                <th onclick="sortTable(4)">Run Strategy</th>
+                <th onclick="sortTable(5)">Type</th>
+                <th onclick="sortTable(6)">Preference</th>
+                <th onclick="sortTable(7)">Storage</th>
+                <th onclick="sortTable(8)">Network (MAC)</th>
+                <th onclick="sortTable(9)">Created</th>
+                <th>Snapshots</th>
+                <th>Warnings</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="vmBody"></tbody>
+    </table>
+</body>
+</html>
