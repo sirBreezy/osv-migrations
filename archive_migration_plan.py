@@ -1,6 +1,7 @@
 import requests
 
 def archive_migration_plan(cluster_url,auth_token,namespace,plan):
+
     url = f"{cluster_url}/apis/forklift.konveyor.io/v1beta1/namespaces/{namespace}/plans/{plan}"
     
     headers = {
@@ -26,7 +27,7 @@ def archive_migration_plan(cluster_url,auth_token,namespace,plan):
 # Example usage
 cluster_url = "https://api.ocp4.example.com:6443"
 auth_token = "" # Use your Bearer token
-namespace = ""
+namespace = "openshift-mtv"
 plan = ""
 
 archive_migration_plan(cluster_url,auth_token,namespace,plan)

@@ -32,9 +32,9 @@ def stop_multiple_vms(cluster_url, namespace, vm_names, auth_token):
             print(f"❌ Failed to stop VM '{vm_name}'.")
 
 # Example usage
-cluster_url = "https://api.ocp4.thebrizzles.local:6443"
-namespace = "cae-team"  
-auth_token = "sha256~0gB9De5mL0MpXdYBGmSXCrxW8CDnu8x2Nul2G2Daf-4"
+cluster_url = "https://api.ocp4.example.com:6443"
+namespace = ""  
+auth_token = ""
 #vm_name = "rhel9-vm"
 
 vm_list = ["fedora-vm", "rhel9-vm"]  # Replace with actual VM names

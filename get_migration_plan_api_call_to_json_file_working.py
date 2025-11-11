@@ -23,11 +23,11 @@ def get_migration_plan(cluster_url,auth_token,namespace,plan):
         print(f'An error occurred: {e}')
 
 # Usage:
-cluster_url = "https://api.ocp4.example.com:6443"
+cluster_url = "https://api.ocp800.thebrizzles.local:6443"
 auth_token = "" # Use your bearer auth_token
-namespace = ""
-plan = ""
-filename = f"{plan}"
+namespace = "openshift-mtv"
+plan = "plan1"
+filename = f"{plan}.json"
 
 get_migration_plan(cluster_url,auth_token,namespace,plan)
 

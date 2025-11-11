@@ -23,8 +23,8 @@ def delete_migration_plan(cluster_url,auth_token,namespace,plan):
 
 # Example usage
 cluster_url = "https://api.ocp4.example.com:6443"
-auth_token = ""  # Use your Bearer token
-namespace = ""
+auth_token = "" # Use your Bearer token
+namespace = "openshift-mtv"
 plan = ""
  
 delete_migration_plan(cluster_url,auth_token,namespace,plan)
