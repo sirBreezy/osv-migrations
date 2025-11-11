@@ -1,6 +1,6 @@
 import requests
 
-def list_vms_in_cluster(cluster_url, namespace, auth_token):
+def list_vms_in_cluster(cluster_url, auth_token):
     url = f"{cluster_url}/apis/kubevirt.io/v1/virtualmachines"
 
     headers = {
@@ -25,8 +25,7 @@ def list_vms_in_cluster(cluster_url, namespace, auth_token):
         return None
 
 # Example usage
-cluster_url = "https://api.ocp800.thebrizzles.local:6443"
-namespace = ""  # Specify the namespace
+cluster_url = "https://api.ocp4.example.com:6443"
 auth_token = ""  # Bearer Token
 
-list_vms_in_cluster(cluster_url, namespace, auth_token)
+list_vms_in_cluster(cluster_url, auth_token)

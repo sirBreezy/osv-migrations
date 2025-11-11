@@ -25,8 +25,8 @@ def list_migration_plans(cluster_url, namespace, auth_token):
         return None
 
 # Example usage
-cluster_url = "https://api.ocp800.thebrizzles.local:6443"
+cluster_url = "https://api.ocp4.example.com:6443"
 namespace = "openshift-mtv"  # Specify the namespace
-auth_token = "sha256~3D8SvtGX68FbzScbP0LWCQ32_AjW2ZevacZ8eH7QdR0"  # Bearer Token
+auth_token = "sha256~"  # Bearer Token
 
 list_migration_plans(cluster_url, namespace, auth_token)

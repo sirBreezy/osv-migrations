@@ -77,7 +77,7 @@ def get_migration_plan_details(cluster_url, auth_token, namespace, plan_name):
     }
 
 # Usage
-cluster_url = "https://api.ocp800.thebrizzles.local:6443"
+cluster_url = "https://api.:ocp4.example.com:6443"
 namespace = "openshift-mtv"  # Specify the namespace
 auth_token = "sha256~"  # Bearer Token
 plan_name = ""
